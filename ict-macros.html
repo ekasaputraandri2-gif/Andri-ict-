@@ -14,10 +14,10 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;transition:background .25s,color .25s}
 main{max-width:680px;margin:0 auto;padding:24px 16px 56px}
 h1,h2{font-family:Georgia,"Iowan Old Style",serif;font-weight:700;line-height:1.2;margin:0}
-h1{font-size:1.85rem}
+h1{font-size:1.5rem}
 p{margin:0 0 10px}
 .hd{text-align:center;margin-bottom:22px}
-.hd .sub{color:var(--muted);margin:8px auto 14px;max-width:440px}
+.hd .sub{color:var(--muted);margin:8px auto 14px;max-width:440px;font-size:.9rem}
 .hd:after{content:"";display:block;width:64px;height:3px;border-radius:3px;background:var(--gold);margin:18px auto 0}
 .tgl{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:.92rem;cursor:pointer;box-shadow:var(--sh)}
 .tgl:hover{border-color:var(--gold)}
@@ -39,7 +39,7 @@ th,td{padding:10px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
 th{color:var(--muted);font-weight:600}
 tr:last-child td{border-bottom:0}
 tr.on td{background:var(--goldbg);font-weight:700}
-summary{cursor:pointer;padding:16px 18px;font-family:Georgia,serif;font-weight:700;font-size:1.05rem;list-style:none;display:flex;justify-content:center;align-items:center;gap:10px;text-align:center}
+summary{cursor:pointer;padding:13px 16px;font-family:Georgia,serif;font-weight:700;font-size:.95rem;list-style:none;display:flex;justify-content:center;align-items:center;gap:10px;text-align:center}
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";color:var(--gold);font-size:1.4rem;line-height:1}
 details[open] summary::after{content:"\2212"}
@@ -68,7 +68,10 @@ svg{width:100%;height:auto;display:block}
 .qc span{display:block;font-weight:600;margin-bottom:4px}
 .qc p{font-size:.82rem;color:var(--muted);margin:0}
 .qt{table-layout:fixed}
-.qt th,.qt td{white-space:normal;padding:8px 4px;font-size:.82rem}
+.qt th,.qt td{white-space:normal;padding:8px 4px;font-size:.82rem;}
+#seq .qt th:nth-child(1){width:22%}#seq .qt th:nth-child(2){width:7%}#seq .qt th:nth-child(3){width:25%}#seq .qt th:nth-child(4){width:27%}#seq .qt th:nth-child(5){width:19%}
+#sqt td:first-child{text-align:left;white-space:nowrap}
+#sqt td:last-child{white-space:nowrap}
 .sv .b{fill:var(--goldbg);opacity:.55}
 :root{--acc:#1f63c4;--g:#2f9b68;--q1:#b7bcc6;--q2:#e5574e;--q3:#f2d479;--q4:#4a9fd6}
 [hidden]{display:none!important}
@@ -80,10 +83,10 @@ svg{width:100%;height:auto;display:block}
 .sw input:checked:after{left:23px}
 .rb{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:1.1rem;cursor:pointer}
 .rb.on{background:var(--acc);color:#fff}
-.rf{position:absolute;top:8px;right:10px;width:36px;height:36px;font-size:1rem;background:var(--card)}
+.rf{position:absolute;top:6px;right:8px;width:32px;height:32px;font-size:.95rem;background:var(--card)}
 .ck{padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);margin-bottom:18px}
 .ck small{display:block;color:var(--muted);font-size:.8rem}
-.ck .t{font-size:2.3rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+.ck .t{font-size:2rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
 .ck .w{color:var(--gold);font-size:.85rem;font-weight:600;margin-bottom:12px;font-variant-numeric:tabular-nums}
 .pb{display:flex;flex-wrap:wrap;gap:8px}
 .pill{padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:.85rem;cursor:pointer}
@@ -92,8 +95,8 @@ input[type=datetime-local]{width:100%;padding:10px;border:1px solid var(--line);
 .ch{position:relative;padding:44px 12px 12px;border:1px solid var(--line);border-radius:14px;background:var(--bg);touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .gr{display:grid;grid-template-columns:48px 1fr;align-items:center}
 .gr>b{font-size:.72rem}
-.tp{position:relative;height:18px;font-size:.72rem;font-variant-numeric:tabular-nums}
-.tp span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.rt{position:relative;height:18px;font-size:.72rem;font-variant-numeric:tabular-nums}
+.rt span{position:absolute;transform:translateX(-50%);white-space:nowrap}
 .rw{margin-top:10px}
 .rl{font-size:.78rem;color:var(--muted);line-height:1.25}
 .rl b{display:block;color:var(--g);font-size:.85rem}
@@ -103,7 +106,7 @@ input[type=datetime-local]{width:100%;padding:10px;border:1px solid var(--line);
 .ov{position:absolute;left:60px;right:12px;top:0;bottom:0;pointer-events:none}
 .ov i{position:absolute;top:56px;bottom:12px;width:1px;background:var(--line)}
 .ov u{position:absolute;top:34px;bottom:8px;width:2px;margin-left:-1px;background:#4aa3e0}
-.ov em{position:absolute;top:6px;left:50%;transform:translateX(-50%);background:#4aa3e0;color:#06223b;font-style:normal;font-weight:700;font-size:.78rem;padding:4px 10px;border-radius:8px;white-space:nowrap}
+.ov em{position:absolute;top:6px;left:50%;transform:translateX(-50%);background:#4aa3e0;color:#06223b;font-style:normal;font-weight:700;font-size:.7rem;padding:4px 8px;border-radius:8px;white-space:nowrap;font-variant-numeric:tabular-nums}
 .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
 .ts{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--acc);color:#fff;padding:10px 16px;border-radius:12px;z-index:9;font-size:.9rem}
 .al{margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
@@ -112,15 +115,11 @@ input[type=datetime-local]{width:100%;padding:10px;border:1px solid var(--line);
 .lg{list-style:none;padding:0;margin:0;font-size:.82rem;text-align:center}
 .lg li{padding:6px 0;border-bottom:1px solid var(--line)}
 .ts{max-width:90vw;text-align:center}
-.tr{display:grid;grid-template-columns:1fr 1.5fr auto;gap:8px;align-items:center;margin-top:8px;text-align:left}
+.tr{display:grid;grid-template-columns:minmax(98px,1fr) 1.3fr auto;gap:8px;align-items:center;margin-top:8px;text-align:left}
 .al .tr .note{text-align:left}
 .tr span{font-size:.88rem}
 select{width:100%;padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);font:inherit;font-size:.9rem}
 main{padding-bottom:96px}
-h1{font-size:1.5rem}
-summary{font-size:.95rem;padding:13px 16px}
-.hd .sub{font-size:.9rem}
-.ck .t{font-size:2rem}
 .tp{display:none}
 .tp.on{display:block}
 .tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;gap:4px;background:var(--card);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -2px 14px rgba(0,0,0,.1)}
@@ -128,6 +127,7 @@ summary{font-size:.95rem;padding:13px 16px}
 .tabs button b{font-size:1.05rem;line-height:1;font-weight:400}
 .tabs button.on{color:var(--gold);background:var(--goldbg);font-weight:600}
 .ts{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.in>p:not(.note),.in li{font-size:.92rem}
 .gd h3{font-family:Georgia,serif;font-size:.9rem;margin:14px 0 6px}
 .gd li,.gd p{font-size:.88rem}
 .gd td,.gd th{text-align:left}
@@ -641,14 +641,14 @@ $("ckw").textContent="WIB \u00b7 "+WN[new Date(B).getUTCDay()]+" \u00b7 "+new Da
 $("bwin").textContent="\u00b1"+WINS[S.wi]+" mnt";
 $("bex").className="pill"+(S.at!=null?" on":"");
 $("exr").hidden=S.at==null;
-var st=[1,5,15,30,60,180,360].filter(function(v){return sp/(v*M)<=8})[0],sm=st*M,tk="",tn="",h='<div class="ov">';
+var st=[1,5,10,15,30,60,180,360].filter(function(v){return sp/(v*M)<=6})[0],sm=st*M,tk="",tn="",h='<div class="ov">';
 for(var w=Math.ceil(t0/sm)*sm;w<t1;w+=sm){var p=x(w);h+='<i style="left:'+p+'%"></i>';if(Math.abs(p-50)>9){tk+='<span style="left:'+p+'%">'+hm(w-o+7*H)+'</span>';tn+='<span style="left:'+p+'%">'+hm(w)+'</span>'}}
 h+='<u style="left:50%"></u><em>NY '+hms(W)+' \u00b7 WIB '+hms(B)+'</em></div>';
-h+='<div class="gr"><b style="color:var(--gold)">WIB</b><div class="tp" style="color:var(--gold)">'+tk+'</div></div><div class="gr"><b style="color:var(--muted)">NY</b><div class="tp" style="color:var(--muted)">'+tn+'</div></div>';
+h+='<div class="gr"><b style="color:var(--gold)">WIB</b><div class="rt" style="color:var(--gold)">'+tk+'</div></div><div class="gr"><b style="color:var(--muted)">NY</b><div class="rt" style="color:var(--muted)">'+tn+'</div></div>';
 var qs=LV.map(function(_,i){return qa(i,W).q}),ch=[],rows="",lo=-1;
 LV.forEach(function(n,i){if(!S.on[i])return;lo=i;ch.push(qs[i]);var bars="",c=t0,k=0;
 while(c<t1&&k++<160){var r=qa(i,c),l=Math.max(0,x(r.s)),rt=Math.min(100,x(r.e)),m=(r.s+r.e)/2,sq=[];for(var j=Math.max(0,i-2);j<=i;j++)sq.push(qa(j,m).q);
-bars+='<div class="'+cl(i,r.q)+'" style="left:'+l+'%;width:'+(rt-l)+'%">'+(rt-l>=8?sq.join("-"):"")+'</div>';c=r.e}
+bars+='<div class="'+cl(i,r.q)+'" style="left:'+l+'%;width:'+(rt-l)+'%">'+(rt-l>=(i>=6?13:9)?sq.join("-"):"")+'</div>';c=r.e}
 h+='<div class="gr rw"><div class="rl">'+n+'<b>'+qs[i]+'</b></div><div class="rp">'+bars+'</div></div>';
 var r2=qa(i,W);rows+='<tr><td><span class="dot" style="background:var(--'+(i>=5?'q'+r2.q:'g')+')"></span>'+n+'</td><td>'+r2.q+'</td><td><b>'+ch.join("-")+'</b></td><td>'+FS[r2.q-1]+'</td><td>'+rem(r2.e-W)+'</td></tr>'});
 $("ch").innerHTML=h;
