@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Analisa Teknikal ICT Macros</title>
+<style>
+:root{--bg:#f2f5fa;--card:#fff;--text:#1a2442;--muted:#64708a;--line:#e0e6f0;--gold:#a8730a;--goldbg:#fbf0d2;--up:#14804a;--down:#cc3a2f;--bar:#e3e9f3;--sh:0 2px 14px rgba(26,36,66,.07);
+color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--card:#131d31;--text:#eaf0fa;--muted:#98a6bf;--line:#243149;--gold:#f0c25a;--goldbg:#2c2410;--up:#3fc380;--down:#ef6b5c;--bar:#1d2b45;--sh:0 2px 14px rgba(0,0,0,.35);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b1220;--card:#131d31;--text:#eaf0fa;--muted:#98a6bf;--line:#243149;--gold:#f0c25a;--goldbg:#2c2410;--up:#3fc380;--down:#ef6b5c;--bar:#1d2b45;--sh:0 2px 14px rgba(0,0,0,.35);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;transition:background .25s,color .25s}
+main{max-width:680px;margin:0 auto;padding:24px 16px 56px}
+h1,h2{font-family:Georgia,"Iowan Old Style",serif;font-weight:700;line-height:1.2;margin:0}
+h1{font-size:1.85rem}
+p{margin:0 0 10px}
+.hd{text-align:center;margin-bottom:22px}
+.hd .sub{color:var(--muted);margin:8px auto 14px;max-width:440px}
+.hd:after{content:"";display:block;width:64px;height:3px;border-radius:3px;background:var(--gold);margin:18px auto 0}
+.tgl{display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:.92rem;cursor:pointer;box-shadow:var(--sh)}
+.tgl:hover{border-color:var(--gold)}
+.card,details{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--sh);margin-bottom:16px}
+.card{padding:18px}
+.clock{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;text-align:center}
+.clock div{padding:12px 8px;border-radius:12px;background:var(--bg);font-variant-numeric:tabular-nums}
+.clock b{display:block;font-size:1.6rem;font-family:Georgia,serif}
+.clock span{color:var(--muted);font-size:.85rem}
+.status{padding:14px;border-radius:12px;background:var(--goldbg);border:1px solid var(--gold);margin-bottom:16px;text-align:center}
+.status strong{font-size:1.05rem}
+.tl{position:relative;height:30px;background:var(--bar);border-radius:8px;margin:4px 0}
+.tl i{position:absolute;top:0;bottom:0;background:var(--gold);opacity:.85;border-radius:3px;min-width:3px}
+.tl u{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--down);text-decoration:none}
+.ax{display:flex;justify-content:space-between;color:var(--muted);font-size:.75rem;margin-bottom:10px}
+.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.92rem;text-align:center}
+th,td{padding:10px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:600}
+tr:last-child td{border-bottom:0}
+tr.on td{background:var(--goldbg);font-weight:700}
+summary{cursor:pointer;padding:16px 18px;font-family:Georgia,serif;font-weight:700;font-size:1.05rem;list-style:none;display:flex;justify-content:center;align-items:center;gap:10px;text-align:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--gold);font-size:1.4rem;line-height:1}
+details[open] summary::after{content:"\2212"}
+details[open] summary{border-bottom:1px solid var(--line)}
+.in{padding:16px 18px 18px}
+ul{padding-left:20px;margin:0 0 10px}
+li{margin-bottom:6px}
+.chk{list-style:none;padding:0;display:grid;grid-template-columns:1fr;gap:10px}
+@media (min-width:640px){.chk{grid-template-columns:1fr 1fr}}
+.chk li{display:flex;gap:10px;align-items:flex-start;margin:0;padding:10px 12px;border:1px solid var(--line);border-radius:12px}
+.chk input{margin-top:5px;width:18px;height:18px;accent-color:var(--gold)}
+label.f{display:block;margin-bottom:12px;font-size:.9rem;color:var(--muted)}
+input[type=number]{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--text);font-size:1rem;margin-top:4px;text-align:center}
+.res{padding:14px;border-radius:12px;background:var(--goldbg);border:1px solid var(--gold);text-align:center}
+svg{width:100%;height:auto;display:block}
+.sv text{fill:var(--muted);font-size:9px}
+.sv .p{fill:none;stroke:var(--text);stroke-width:1.6}
+.sv .l{stroke:var(--muted);stroke-dasharray:4 3;stroke-width:1}
+.sv .m{fill:var(--goldbg);stroke:var(--gold)}
+.note{font-size:.85rem;color:var(--muted)}
+.card .note,.in>.note{text-align:center}
+.qh{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media (min-width:640px){.qh{grid-template-columns:repeat(4,1fr)}}
+.qc{padding:12px 8px;border:1px solid var(--line);border-radius:12px;text-align:center;background:var(--bg)}
+.qc b{display:block;font-family:Georgia,serif;font-size:1.1rem;color:var(--gold)}
+.qc span{display:block;font-weight:600;margin-bottom:4px}
+.qc p{font-size:.82rem;color:var(--muted);margin:0}
+.qt{table-layout:fixed}
+.qt th,.qt td{white-space:normal;padding:8px 4px;font-size:.82rem}
+.sv .b{fill:var(--goldbg);opacity:.55}
+:root{--acc:#1f63c4;--g:#2f9b68;--q1:#b7bcc6;--q2:#e5574e;--q3:#f2d479;--q4:#4a9fd6}
+[hidden]{display:none!important}
+.sqh{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
+.sw{display:flex;align-items:center;gap:12px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg);font-size:.9rem}
+.sw input{appearance:none;-webkit-appearance:none;width:46px;height:26px;border-radius:999px;background:var(--bar);position:relative;cursor:pointer;margin:0}
+.sw input:after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s}
+.sw input:checked{background:var(--acc)}
+.sw input:checked:after{left:23px}
+.rb{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--text);font-size:1.1rem;cursor:pointer}
+.rb.on{background:var(--acc);color:#fff}
+.rf{position:absolute;top:8px;right:10px;width:36px;height:36px;font-size:1rem;background:var(--card)}
+.ck{padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg);margin-bottom:18px}
+.ck small{display:block;color:var(--muted);font-size:.8rem}
+.ck .t{font-size:2.3rem;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.2}
+.ck .w{color:var(--gold);font-size:.85rem;font-weight:600;margin-bottom:12px;font-variant-numeric:tabular-nums}
+.pb{display:flex;flex-wrap:wrap;gap:8px}
+.pill{padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit;font-size:.85rem;cursor:pointer}
+.pill.on,.pill.pr{background:var(--acc);border-color:var(--acc);color:#fff}
+input[type=datetime-local]{width:100%;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);font-size:1rem;margin-top:4px}
+.ch{position:relative;padding:44px 12px 12px;border:1px solid var(--line);border-radius:14px;background:var(--bg);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.gr{display:grid;grid-template-columns:48px 1fr;align-items:center}
+.gr>b{font-size:.72rem}
+.tp{position:relative;height:18px;font-size:.72rem;font-variant-numeric:tabular-nums}
+.tp span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.rw{margin-top:10px}
+.rl{font-size:.78rem;color:var(--muted);line-height:1.25}
+.rl b{display:block;color:var(--g);font-size:.85rem}
+.rp{position:relative;height:46px;overflow:hidden;border-radius:4px}
+.rp div{position:absolute;top:0;bottom:0;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#fff;border-left:1px solid var(--bg);overflow:hidden;white-space:nowrap}
+.rp .g{background:var(--g)}.rp .q1{background:var(--q1);color:#2a2f3a}.rp .q2{background:var(--q2)}.rp .q3{background:var(--q3);color:#3a2f06}.rp .q4{background:var(--q4)}
+.ov{position:absolute;left:60px;right:12px;top:0;bottom:0;pointer-events:none}
+.ov i{position:absolute;top:56px;bottom:12px;width:1px;background:var(--line)}
+.ov u{position:absolute;top:34px;bottom:8px;width:2px;margin-left:-1px;background:#4aa3e0}
+.ov em{position:absolute;top:6px;left:50%;transform:translateX(-50%);background:#4aa3e0;color:#06223b;font-style:normal;font-weight:700;font-size:.78rem;padding:4px 10px;border-radius:8px;white-space:nowrap}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+.ts{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--acc);color:#fff;padding:10px 16px;border-radius:12px;z-index:9;font-size:.9rem}
+.al{margin-top:16px;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--bg)}
+.al .pb{justify-content:center;margin-top:6px}
+.al .note{text-align:center}
+.lg{list-style:none;padding:0;margin:0;font-size:.82rem;text-align:center}
+.lg li{padding:6px 0;border-bottom:1px solid var(--line)}
+.ts{max-width:90vw;text-align:center}
+.tr{display:grid;grid-template-columns:1fr 1.5fr auto;gap:8px;align-items:center;margin-top:8px;text-align:left}
+.al .tr .note{text-align:left}
+.tr span{font-size:.88rem}
+select{width:100%;padding:9px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--text);font:inherit;font-size:.9rem}
+main{padding-bottom:96px}
+h1{font-size:1.5rem}
+summary{font-size:.95rem;padding:13px 16px}
+.hd .sub{font-size:.9rem}
+.ck .t{font-size:2rem}
+.tp{display:none}
+.tp.on{display:block}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;justify-content:center;gap:4px;background:var(--card);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -2px 14px rgba(0,0,0,.1)}
+.tabs button{flex:1;max-width:120px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border:0;background:none;color:var(--muted);font:inherit;font-size:.68rem;cursor:pointer;border-radius:10px}
+.tabs button b{font-size:1.05rem;line-height:1;font-weight:400}
+.tabs button.on{color:var(--gold);background:var(--goldbg);font-weight:600}
+.ts{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+.gd h3{font-family:Georgia,serif;font-size:.9rem;margin:14px 0 6px}
+.gd li,.gd p{font-size:.88rem}
+.gd td,.gd th{text-align:left}
+.gd .qt td,.gd .qt th{font-size:.76rem}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+<main>
+<header class="hd">
+<h1>Analisa teknikal ICT Macros</h1>
+<p class="sub">Panduan, jam macro realtime, dan kalkulator risiko untuk XAUUSD dan pair lain.</p>
+<button class="tgl" id="tg" type="button" aria-pressed="false">Ganti tema</button>
+</header>
+
+<div class="tp on" id="t-live">
+<section class="card" aria-live="off">
+  <div class="clock">
+    <div><b id="wib">--:--:--</b><span>WIB (Jakarta)</span></div>
+    <div><b id="ny">--:--:--</b><span id="nyl">New York</span></div>
+  </div>
+  <div class="status"><strong id="st">Memuat…</strong><div id="cd" class="note"></div></div>
+  <div class="tl" id="tl" role="img" aria-label="Garis waktu macro dalam sehari waktu New York"></div>
+  <div class="ax"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+  <p class="note">Garis waktu memakai jam New York. Garis merah adalah posisi sekarang.</p>
+</section>
+
+<section class="card" id="seq">
+<div class="sqh"><label class="sw">Sequences<input type="checkbox" id="sqsw" checked></label><button class="rb" id="sqbell" type="button" aria-label="Notifikasi pergantian kuartal">🔔</button></div>
+<div id="sqbody">
+<div class="ck"><small id="ckd">—</small><div class="t" id="ckt">--:--:--</div><div class="w" id="ckw">—</div>
+<div class="pb"><button class="pill" id="bex" type="button">EXPLORE</button><button class="pill pr" id="blive" type="button">Back to Live</button><button class="pill" id="bwin" type="button">±17.5 mnt</button></div>
+<div id="exr" hidden style="margin-top:12px"><label class="f" style="margin:0">Lompat ke waktu New York<input type="datetime-local" id="exin"></label><p class="note" style="margin:6px 0 0">Geser timeline ke kiri atau kanan untuk menjelajah waktu.</p></div></div>
+<h2 style="font-size:1.15rem">Quarterly Sequences Timeline</h2>
+<p class="note" style="margin:4px 0 14px">Time: America/New_York (NY) · dibandingkan dengan WIB (UTC+7)</p>
+<div class="note" style="margin-bottom:6px">Tampilkan level</div>
+<div class="pb" id="chips" style="margin-bottom:10px"></div>
+<div class="pb" style="margin-bottom:16px"><button class="pill" id="pre" type="button">Preset: Weekly · Daily · 90m</button><button class="pill" id="all" type="button">Semua</button></div>
+<div style="position:relative;margin-bottom:16px"><div class="ch" id="ch"></div><button class="rb rf" id="rf" type="button" aria-label="Kembali ke live">↻</button></div>
+<div class="note" style="margin-bottom:6px">Tabel Info (urutan Q dari level yang dicentang)</div>
+<div class="wrap"><table class="qt"><thead><tr><th>Level</th><th>Q</th><th>Urutan</th><th>Fase</th><th>Sisa</th></tr></thead><tbody id="sqt"></tbody></table></div>
+<div class="status" style="margin:14px 0 0" id="sqa"></div>
+<div class="al" id="alp">
+<h2 style="font-size:1.1rem;text-align:center;margin-bottom:6px">Alarm fase</h2>
+<p class="note" style="text-align:center;margin-bottom:12px">Nyalakan lonceng di atas, lalu pilih level, fase, dan waktu peringatan. Halaman harus tetap terbuka.</p>
+<div class="note">Level</div><div class="pb" id="alv"></div>
+<div class="note" style="margin-top:12px">Fase yang diberi alarm</div><div class="pb" id="alph"></div>
+<div class="note" style="margin-top:12px">Peringatan lebih awal</div><div class="pb" id="alpre"></div>
+<div class="pb" style="margin-top:12px"><button class="pill on" id="alsn" type="button">Suara</button><button class="pill on" id="alvb" type="button">Getar</button><button class="pill" id="altest" type="button">Tes alarm</button></div>
+<div class="note" style="margin:14px 0 4px;text-align:center">Riwayat alarm</div><ul class="lg" id="alog"></ul>
+</div>
+<div class="al" id="tnp">
+<h2 style="font-size:1.1rem;text-align:center;margin-bottom:6px">Nada &amp; suara</h2>
+<p class="note" style="margin-bottom:6px">Pilih nada untuk tiap fase, atau unggah file audio sendiri (maksimal 1 MB).</p>
+<div id="tnrows"></div>
+<div class="note" style="margin-top:14px">Nada saya</div><div id="cus"></div>
+<input type="file" id="cuf" accept="audio/*" hidden>
+<label class="f" style="margin:14px 0 0">Volume<input type="range" id="vol" min="0.1" max="1" step="0.1" value="0.8" style="width:100%;accent-color:var(--gold)"></label>
+</div>
+</div>
+</section>
+</div>
+<div class="ts" id="toast" hidden></div>
+<div class="tp" id="t-macro">
+<details open>
+<summary>Apa itu ICT Macros</summary>
+<div class="in">
+<p>Macro adalah jendela waktu singkat saat algoritma penyedia harga cenderung aktif: mengambil likuiditas, mengisi inefisiensi (FVG), lalu berekspansi. Umumnya berlangsung sekitar 20 menit, dari menit ke-50 sampai menit ke-10 jam berikutnya.</p>
+<p>Macro bukan sinyal entry sendiri. Ia berfungsi sebagai filter waktu: cari setup hanya saat macro aktif dan searah bias.</p>
+</div>
+</details>
+
+<details open>
+<summary>Jadwal macro</summary>
+<div class="in wrap">
+<table>
+<thead><tr><th>Sesi</th><th>New York</th><th>WIB</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+<p class="note" style="margin-top:10px">Konversi WIB otomatis menyesuaikan perubahan jam musim panas Amerika.</p>
+<div class="al" id="map">
+<h2 style="font-size:1.1rem;text-align:center;margin-bottom:6px">Alarm macro</h2>
+<p class="note" style="margin-bottom:12px">Halaman harus terbuka dan akhir pekan dilewati.</p>
+<div class="pb" style="margin-bottom:12px"><button class="pill" id="mabell" type="button">🔕 Alarm mati (ketuk untuk menyalakan)</button></div>
+<div class="note">Macro yang diberi alarm (jam New York)</div><div class="pb" id="mach"></div>
+<div class="note" style="margin-top:12px">Peringatan sebelum mulai</div><div class="pb" id="mapre"></div>
+<div class="pb" style="margin-top:12px"><button class="pill" id="mast" type="button">Saat mulai</button><button class="pill" id="maen" type="button">Saat selesai</button><button class="pill" id="matest" type="button">Tes alarm macro</button></div>
+<div id="matn"></div>
+</div>
+</div>
+</details>
+
+</div>
+<div class="tp" id="t-quarterly">
+<details open>
+<summary>Quarterly Theory (AMD)</summary>
+<div class="in">
+<p>Setiap rentang waktu dibagi menjadi empat kuartal yang sama panjang. Polanya berulang di semua skala (fraktal): dari tahun sampai 22,5 menit.</p>
+<div class="status"><div id="qlive">Memuat…</div></div>
+<div class="qh">
+<div class="qc"><b>Q1</b><span>Akumulasi</span><p>Harga konsolidasi, range terbentuk, likuiditas menumpuk di kedua sisi.</p></div>
+<div class="qc"><b>Q2</b><span>Manipulasi</span><p>Gerakan palsu berlawanan arah sebenarnya, menyapu likuiditas.</p></div>
+<div class="qc"><b>Q3</b><span>Distribusi</span><p>Ekspansi searah bias sebenarnya dengan displacement kuat.</p></div>
+<div class="qc"><b>Q4</b><span>Lanjutan / pembalikan</span><p>Tren berlanjut atau berbalik; sering retrace ke area sebelumnya.</p></div>
+</div>
+<p><b>Bullish:</b> Q2 menyapu low, Q3 naik.</p>
+<svg class="sv" viewBox="0 0 320 130" role="img" aria-label="AMD bullish">
+<rect class="b" x="80" y="0" width="80" height="130"/><rect class="b" x="240" y="0" width="80" height="130"/>
+<text x="40" y="12" text-anchor="middle">Q1 Akumulasi</text><text x="120" y="12" text-anchor="middle">Q2 Manipulasi</text><text x="200" y="12" text-anchor="middle">Q3 Distribusi</text><text x="280" y="12" text-anchor="middle">Q4 Lanjutan</text>
+<polyline class="p" points="5,70 25,62 45,74 65,66 80,70 100,85 120,100 140,90 160,78 180,55 200,38 220,28 240,24 260,30 280,26 300,28 315,32"/>
+<circle cx="120" cy="100" r="3.5" fill="var(--down)"/><text x="120" y="116" text-anchor="middle">Sweep</text>
+</svg>
+<p style="margin-top:12px"><b>Bearish:</b> Q2 menyapu high, Q3 turun.</p>
+<svg class="sv" viewBox="0 0 320 130" role="img" aria-label="AMD bearish">
+<rect class="b" x="80" y="0" width="80" height="130"/><rect class="b" x="240" y="0" width="80" height="130"/>
+<text x="40" y="12" text-anchor="middle">Q1 Akumulasi</text><text x="120" y="12" text-anchor="middle">Q2 Manipulasi</text><text x="200" y="12" text-anchor="middle">Q3 Distribusi</text><text x="280" y="12" text-anchor="middle">Q4 Lanjutan</text>
+<polyline class="p" points="5,60 25,68 45,56 65,64 80,60 100,45 120,30 140,40 160,52 180,75 200,92 220,102 240,106 260,100 280,104 300,102 315,98"/>
+<circle cx="120" cy="30" r="3.5" fill="var(--down)"/><text x="120" y="24" text-anchor="middle">Sweep</text>
+</svg>
+<p class="note" style="margin-top:8px">Diagram ilustrasi, bukan data pasar sebenarnya.</p>
+<h2 style="font-size:1.05rem;text-align:center;margin:18px 0 10px">Pembagian kuartal per skala waktu</h2>
+<table class="qt">
+<thead><tr><th>Skala</th><th>Q1</th><th>Q2</th><th>Q3</th><th>Q4</th></tr></thead>
+<tbody>
+<tr><td>Tahunan</td><td>Jan–Mar</td><td>Apr–Jun</td><td>Jul–Sep</td><td>Okt–Des</td></tr>
+<tr><td>Bulanan</td><td>Minggu 1</td><td>Minggu 2</td><td>Minggu 3</td><td>Minggu 4</td></tr>
+<tr><td>Mingguan</td><td>Senin</td><td>Selasa</td><td>Rabu</td><td>Kamis–Jumat</td></tr>
+<tr><td>Harian</td><td>Asia</td><td>London</td><td>NY AM</td><td>NY PM</td></tr>
+<tr><td>90 menit</td><td>22,5 mnt</td><td>22,5 mnt</td><td>22,5 mnt</td><td>22,5 mnt</td></tr>
+</tbody>
+</table>
+<h2 style="font-size:1.05rem;text-align:center;margin:18px 0 10px">Kuartal harian</h2>
+<div class="wrap">
+<table class="qt">
+<thead><tr><th>Q</th><th>Fase</th><th>Sesi</th><th>New York</th><th>WIB</th></tr></thead>
+<tbody id="dq"></tbody>
+</table>
+</div>
+<p class="note" style="margin-top:10px">Hari dihitung mulai 18:00 New York, tiap kuartal 6 jam dan tiap siklus 90 menit punya empat kuartal mikro.</p>
+<h2 style="font-size:1.05rem;text-align:center;margin:18px 0 8px">Dipakai bersama macro</h2>
+<ul>
+<li>Tentukan kuartal di skala besar dulu, lalu turun ke kuartal harian dan siklus 90 menit.</li>
+<li>Macro di Q2 paling sering berupa sweep (manipulasi); tunggu MSS sebelum entry.</li>
+<li>Macro di Q3 umumnya ekspansi searah bias; cari retrace ke FVG.</li>
+<li>Q4 rawan berbalik atau konsolidasi, kurangi ukuran posisi.</li>
+</ul>
+<p class="note">Pembagian waktu bisa berbeda antar trader. Uji dulu di backtest sebelum dipakai di akun riil.</p>
+</div>
+</details>
+
+</div>
+<div class="tp" id="t-entry"><div class="gd">
+<div class="card">
+<h2 style="font-size:1.05rem;text-align:center;margin-bottom:6px">Panduan entry: ICT Macros + Quarterly Theory</h2>
+<p class="note" style="text-align:center">Semua jam dalam waktu New York (NY). Edukasi, bukan saran keuangan.</p>
+<ol>
+<li><b>Bias.</b> Tentukan arah dan target likuiditas di Daily atau H4.</li>
+<li><b>Konteks waktu.</b> Lihat tab Live: kuartal Daily, 90m, dan Micro.</li>
+<li><b>Tunggu jendela.</b> Macro aktif atau level kecil masuk Q2.</li>
+<li><b>Sweep lalu konfirmasi.</b> Likuiditas disapu, lalu MSS atau CISD dengan displacement.</li>
+<li><b>Entry.</b> Di FVG atau order block saat level kecil masuk Q3.</li>
+<li><b>Kelola.</b> SL di balik sweep, TP di likuiditas lawan, amankan profit di Q4.</li>
+</ol>
+</div>
+
+<details open>
+<summary>1. Persiapan sebelum sesi</summary>
+<div class="in">
+<h3>Bias dan struktur</h3>
+<ul>
+<li>Daily dan H4: higher high dan higher low berarti bullish, lower high dan lower low berarti bearish.</li>
+<li>Bagi dealing range terakhir di 50%. Di bawah 50% disebut discount (cari long), di atas 50% premium (cari short).</li>
+<li>Tandai draw on liquidity: PDH/PDL, PWH/PWL, equal highs/lows, serta high dan low sesi Asia dan London.</li>
+</ul>
+<h3>Level kunci hari ini</h3>
+<ul>
+<li>Open tengah malam NY (00:00) dan open 08:30 NY sebagai acuan premium dan discount harian.</li>
+<li>High dan low Asia: target sapuan favorit saat London.</li>
+<li>FVG, order block, dan breaker di H1 atau M15 yang searah bias.</li>
+</ul>
+<h3>Berita</h3>
+<ul>
+<li>Cek kalender. Rilis 08:30 NY (NFP, CPI) dan FOMC membuat gerakan liar dan spread melebar.</li>
+<li>Jangan buka posisi baru 5 menit sebelum rilis besar; tunggu harga stabil.</li>
+</ul>
+<h3>Tulis rencana if-then</h3>
+<p>Contoh: "Bias bullish. Jika low Asia disapu saat macro NY AM lalu muncul MSS di M1, saya long di FVG dengan target PDH."</p>
+</div>
+</details>
+
+<details>
+<summary>2. Entry dengan ICT Macros</summary>
+<div class="in">
+<h3>Prinsip</h3>
+<p>Macro adalah jendela algoritmik singkat saat harga cenderung menyapu likuiditas lalu berekspansi atau berbalik. Macro hanya filter waktu, bukan sinyal. Tanpa bias dan setup yang jelas, jangan entry hanya karena macro.</p>
+<h3>Langkah detail</h3>
+<ol>
+<li><b>5 sampai 10 menit sebelum macro</b> (alarm "sebentar lagi" membantu): tandai likuiditas terdekat di M5 dan M1, yaitu high dan low sebelumnya, equal highs/lows, serta high dan low Asia atau pre-market. Tandai juga FVG dan OB terdekat.</li>
+<li><b>Saat macro mulai:</b> jangan entry di menit pertama. Amati apakah harga bergerak menuju likuiditas yang sudah ditandai.</li>
+<li><b>Sweep:</b> harga menembus high atau low (wick atau close) lalu menolak kembali. Sweep yang melawan bias sering menjadi jebakan sebelum arah sebenarnya.</li>
+<li><b>Konfirmasi:</b> candle menembus swing terakhir (MSS) atau CISD di M1 sampai M5, dengan badan candle besar (displacement) yang meninggalkan FVG. Tanpa displacement, lewati.</li>
+<li><b>Entry:</b> limit di 50% FVG (consequent encroachment) atau di order block yang melahirkan displacement. Versi agresif: market tepat setelah MSS dengan SL lebih jauh.</li>
+<li><b>Batal:</b> jika limit belum terisi saat macro berakhir, atau harga sudah menembus TP1 tanpa retrace, batalkan. Jangan mengejar.</li>
+</ol>
+<h3>Tiga skenario di dalam macro</h3>
+<ul>
+<li><b>Sweep lalu berbalik</b> (paling umum): entry setelah MSS ke arah bias.</li>
+<li><b>Retrace lalu lanjut:</b> harga kembali ke FVG atau OB sebelumnya, lalu melanjutkan arah. Entry di area tersebut.</li>
+<li><b>Tidak bergerak:</b> range sempit tanpa displacement. Skip dan tunggu macro berikutnya.</li>
+</ul>
+<h3>Prioritas untuk XAUUSD</h3>
+<p>London (02:33 dan 04:03) serta NY AM (08:50, 09:50, 10:50) paling aktif. Macro lunch dan PM lebih sering choppy; pakai hanya bila setup sangat jelas.</p>
+</div>
+</details>
+
+<details>
+<summary>3. Entry dengan Quarterly Theory</summary>
+<div class="in">
+<h3>Langkah detail</h3>
+<ol>
+<li><b>Baca posisi skala besar.</b> Hari dibagi 4 sesi 6 jam mulai 18:00 NY: Q1 Asia, Q2 London, Q3 NY AM, Q4 NY PM. Mingguan: Senin Q1, Selasa Q2, Rabu Q3, Kamis sampai Jumat Q4.</li>
+<li><b>Skenario AMD harian:</b> Asia membentuk range (akumulasi), London menyapu high atau low Asia (manipulasi), NY AM ekspansi ke arah sebenarnya (distribusi), NY PM lanjut atau berbalik.</li>
+<li><b>Turun ke siklus 90 menit.</b> Tiap sesi berisi 4 siklus 90 menit. Umumnya siklus ke-2 berisi manipulasi dan siklus ke-3 ekspansi.</li>
+<li><b>Turun ke Micro (22,5 menit) dan Nano (5,6 menit).</b> Cari sweep di Q2 level kecil, lalu displacement di Q3.</li>
+<li><b>Cocokkan rantai angka di tab Live.</b> 3-2-2 berarti Daily Q3, 90m Q2, Micro Q2: manipulasi bertingkat, tunggu sweep. 3-3-3 berarti semua di distribusi: ekspansi sedang berjalan.</li>
+<li><b>Entry:</b> saat level kecil selesai Q2 dan masuk Q3 (alarm Q3 berbunyi), di retrace ke FVG atau OB searah bias.</li>
+</ol>
+<h3>Apa yang dilakukan di tiap fase</h3>
+<div class="wrap"><table class="qt">
+<thead><tr><th>Fase</th><th>Lakukan</th><th>Hindari</th></tr></thead>
+<tbody>
+<tr><td>Q1</td><td>Tandai high dan low range, tunggu</td><td>Entry dan mengejar breakout kecil</td></tr>
+<tr><td>Q2</td><td>Tunggu sweep dan MSS</td><td>Beli atau jual saat gerakan palsu berlangsung</td></tr>
+<tr><td>Q3</td><td>Entry di retrace, kelola posisi</td><td>Mengejar harga yang sudah jauh</td></tr>
+<tr><td>Q4</td><td>Ambil profit, siap berbalik</td><td>Entry baru di akhir kuartal</td></tr>
+</tbody></table></div>
+<h3>Validasi dan batal</h3>
+<ul>
+<li>Long batal jika harga close di bawah low sapuan. Short batal jika close di atas high sapuan.</li>
+<li>Jika Q3 sudah berjalan lebih dari separuh tanpa retrace, jangan kejar; tunggu siklus berikutnya.</li>
+<li>Jika level besar berada di akhir Q4, kurangi ukuran posisi atau skip.</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>4. Menggabungkan Macro dan Quarterly</summary>
+<div class="in">
+<p>Kuartal memberi konteks (fase apa), macro memberi waktu eksekusi (kapan). Posisi tiap macro menurut pembagian di tab Live:</p>
+<div class="wrap"><table class="qt">
+<thead><tr><th>Macro</th><th>Jam NY</th><th>Posisi kuartal</th><th>Peran umum</th></tr></thead>
+<tbody>
+<tr><td>London 1</td><td>02:33–03:00</td><td>Daily Q2, akhir 90m ke-2</td><td>Sweep range Asia</td></tr>
+<tr><td>London 2</td><td>04:03–04:30</td><td>Daily Q2, akhir 90m ke-3</td><td>Lanjutan atau pembalikan</td></tr>
+<tr><td>NY AM 1</td><td>08:50–09:10</td><td>Daily Q3, transisi 90m ke-2 ke ke-3</td><td>Sweep pre-market lalu ekspansi (setup utama)</td></tr>
+<tr><td>NY AM 2</td><td>09:50–10:10</td><td>Daily Q3, 90m ke-3 (Micro Q3)</td><td>Ekspansi atau retrace untuk entry</td></tr>
+<tr><td>NY AM 3</td><td>10:50–11:10</td><td>Daily Q3, 90m ke-4 (Micro Q2)</td><td>Sweep sebelum lanjutan</td></tr>
+<tr><td>Lunch</td><td>11:50–12:10</td><td>Transisi Daily Q3 ke Q4</td><td>Rawan balik dan choppy</td></tr>
+<tr><td>NY PM 1</td><td>13:10–13:40</td><td>Daily Q4, transisi 90m ke-1 ke ke-2</td><td>Lanjutan atau pembalikan</td></tr>
+<tr><td>NY PM 2</td><td>14:50–15:10</td><td>Daily Q4, transisi 90m ke-2 ke ke-3</td><td>Lanjutan</td></tr>
+<tr><td>NY close</td><td>15:15–15:45</td><td>Daily Q4, 90m ke-3</td><td>Rebalancing, hati-hati</td></tr>
+</tbody></table></div>
+<p class="note" style="margin-top:8px">Peran umum adalah kecenderungan, bukan jaminan.</p>
+<h3>Skor kualitas setup</h3>
+<p>Beri 1 poin untuk tiap syarat yang terpenuhi:</p>
+<ol>
+<li>Bias Daily atau H4 searah entry.</li>
+<li>Long di discount atau short di premium.</li>
+<li>Ada sweep likuiditas yang jelas.</li>
+<li>MSS atau CISD dengan displacement dan FVG.</li>
+<li>Berada di dalam jendela macro atau killzone.</li>
+<li>Level kecil Q2 menuju Q3, dan level besar bukan di akhir Q4.</li>
+<li>Risk-reward minimal 1:2.</li>
+</ol>
+<p>Skor 6 sampai 7: setup kuat. Skor 5: boleh dengan ukuran lebih kecil. Di bawah 5: lewati.</p>
+</div>
+</details>
+
+<details>
+<summary>5. Contoh skenario lengkap (bullish XAUUSD)</summary>
+<div class="in">
+<p class="note">Angka harga hanya ilustrasi. Bias Daily bullish, harga di discount, London sudah menyapu low Asia.</p>
+<ol>
+<li><b>07:30 sampai 09:00</b> (Daily Q3, 90m Q2): harga turun menuju low pre-market, yaitu sell-side liquidity di 3.000,0.</li>
+<li><b>08:50</b> macro NY AM 1 mulai. Harga menyapu 3.000,0 dengan wick lalu close kembali di atasnya.</li>
+<li><b>08:55</b>: candle M1 menembus swing high terakhir dengan displacement (MSS) dan meninggalkan FVG di 3.003,0 sampai 3.005,0.</li>
+<li><b>09:00</b>: 90m masuk Q3. Alarm Q3 berbunyi, rantai berubah menjadi 3-3-1.</li>
+<li><b>09:02</b>: harga retrace ke FVG. Entry limit di 50% FVG: 3.004,0.</li>
+<li><b>SL</b> di 2.999,0 (di bawah low sapuan, jarak 5,0). <b>TP1</b> 3.014,0 (RR 1:2) di equal highs. <b>TP2</b> 3.024,0 (RR 1:4) di PDH.</li>
+<li><b>Kelola:</b> di TP1 tutup separuh dan geser SL ke break-even. Sisanya menuju TP2; amankan penuh saat Q4 atau bila muncul sweep balik.</li>
+<li><b>09:10</b> macro selesai. Jika limit belum terisi dan harga sudah lewat TP1 tanpa retrace, batalkan dan tunggu setup berikutnya.</li>
+</ol>
+<p><b>Versi bearish:</b> cerminkan. Bias bearish di premium, macro menyapu high, MSS turun, entry short di FVG saat Q3, SL di atas high sapuan, TP di sell-side liquidity.</p>
+</div>
+</details>
+
+<details>
+<summary>6. SL, TP, dan manajemen posisi</summary>
+<div class="in">
+<ul>
+<li><b>Stop loss:</b> tepat di balik swing yang menyapu likuiditas, ditambah buffer kecil untuk spread. Jangan digeser menjauh.</li>
+<li><b>Take profit:</b> TP1 di likuiditas internal terdekat atau 1R sampai 2R. TP2 di likuiditas eksternal (PDH/PDL, equal highs/lows).</li>
+<li><b>Break-even:</b> setelah TP1 tercapai atau harga membentuk struktur baru searah posisi.</li>
+<li><b>Risiko:</b> 0,5 sampai 1% saldo per trade. Hitung lot dengan kalkulator di tab Alat.</li>
+<li><b>Batas harian:</b> maksimal 2 sampai 3 trade, berhenti setelah 2 loss beruntun.</li>
+<li><b>Jurnal:</b> simpan screenshot, macro, rantai kuartal, alasan entry, dan hasil. Evaluasi tiap minggu.</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>7. Kapan tidak boleh entry</summary>
+<div class="in">
+<ul>
+<li>Tidak ada bias HTF, atau long di premium dan short di discount.</li>
+<li>Tidak ada sweep, atau ada sweep tetapi tanpa displacement.</li>
+<li>Level kecil di Q1 atau level besar di akhir Q4.</li>
+<li>5 menit sebelum dan sesudah berita besar, atau spread sedang melebar.</li>
+<li>Macro lunch dan PM tanpa setup yang sangat jelas.</li>
+<li>Setelah 2 loss beruntun, atau saat emosi sedang tidak stabil.</li>
+<li>Mengejar harga setelah limit tidak terisi.</li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>8. Alur memakai halaman ini</summary>
+<div class="in">
+<ol>
+<li>Di tab Live, nyalakan lonceng dan pilih fase Q2 dan Q3 pada level Daily, 90m, dan Micro.</li>
+<li>Di tab Macro, pilih macro yang dipantau dan atur peringatan 5 menit sebelum mulai.</li>
+<li>Alarm "sebentar lagi": siapkan level likuiditas dan FVG di chart.</li>
+<li>Alarm Q2 atau macro mulai: tunggu sweep dan MSS, belum entry.</li>
+<li>Alarm Q3: eksekusi di retrace ke FVG atau OB bila syarat terpenuhi.</li>
+<li>Saat Q4: kelola dan ambil profit, lalu catat di jurnal.</li>
+</ol>
+</div>
+</details>
+</div></div>
+<div class="tp" id="t-alat">
+<details open>
+<summary>Checklist analisa step by step</summary>
+<div class="in">
+<ul class="chk">
+<li><input type="checkbox" id="c1"><label for="c1"><b>Bias HTF.</b> Tentukan arah di Daily dan H4: struktur, premium atau discount.</label></li>
+<li><input type="checkbox" id="c2"><label for="c2"><b>Draw on liquidity.</b> Tandai target: swing high/low, equal highs/lows, PDH/PDL.</label></li>
+<li><input type="checkbox" id="c3"><label for="c3"><b>PD Array.</b> Cari order block, FVG, atau breaker di area yang searah bias.</label></li>
+<li><input type="checkbox" id="c4"><label for="c4"><b>Killzone.</b> Pastikan berada di London atau New York.</label></li>
+<li><input type="checkbox" id="c5"><label for="c5"><b>Macro aktif.</b> Tunggu sweep likuiditas di dalam jendela macro.</label></li>
+<li><input type="checkbox" id="c6"><label for="c6"><b>Konfirmasi.</b> Tunggu MSS atau CISD di M1 sampai M5 setelah sweep.</label></li>
+<li><input type="checkbox" id="c7"><label for="c7"><b>Entry.</b> Masuk di FVG atau order block hasil displacement.</label></li>
+<li><input type="checkbox" id="c8"><label for="c8"><b>Stop loss.</b> Di balik swing yang menyapu likuiditas.</label></li>
+<li><input type="checkbox" id="c9"><label for="c9"><b>Target.</b> Likuiditas berlawanan; minimal RR 1:2.</label></li>
+<li><input type="checkbox" id="c10"><label for="c10"><b>Risiko.</b> Hitung lot dari risiko tetap per trade.</label></li>
+</ul>
+</div>
+</details>
+
+<details>
+<summary>Contoh skenario XAUUSD</summary>
+<div class="in">
+<p><b>Bullish.</b> Harga menyapu SSL saat macro, MSS naik, entry di FVG, target BSL.</p>
+<svg class="sv" viewBox="0 0 320 150" role="img" aria-label="Skenario bullish">
+<rect class="m" x="135" y="5" width="65" height="140"/>
+<text x="140" y="16">Macro</text>
+<line class="l" x1="5" y1="110" x2="315" y2="110"/><text x="5" y="106">SSL</text>
+<line class="l" x1="5" y1="25" x2="315" y2="25"/><text x="5" y="21">BSL (target)</text>
+<polyline class="p" points="10,60 50,75 90,65 130,95 160,118 190,90 215,70 235,82 260,50 300,30"/>
+<circle cx="160" cy="118" r="3.5" fill="var(--down)"/><text x="166" y="134">Sweep</text>
+<circle cx="235" cy="82" r="3.5" fill="var(--up)"/><text x="240" y="98">Entry FVG</text>
+</svg>
+<p style="margin-top:14px"><b>Bearish.</b> Harga menyapu BSL saat macro, MSS turun, entry di FVG, target SSL.</p>
+<svg class="sv" viewBox="0 0 320 150" role="img" aria-label="Skenario bearish">
+<rect class="m" x="135" y="5" width="65" height="140"/>
+<text x="140" y="16">Macro</text>
+<line class="l" x1="5" y1="40" x2="315" y2="40"/><text x="5" y="36">BSL</text>
+<line class="l" x1="5" y1="125" x2="315" y2="125"/><text x="5" y="121">SSL (target)</text>
+<polyline class="p" points="10,90 50,75 90,85 130,55 160,32 190,60 215,80 235,68 260,100 300,120"/>
+<circle cx="160" cy="32" r="3.5" fill="var(--down)"/><text x="166" y="28">Sweep</text>
+<circle cx="235" cy="68" r="3.5" fill="var(--up)"/><text x="240" y="62">Entry FVG</text>
+</svg>
+<p class="note" style="margin-top:8px">Diagram ilustrasi, bukan data pasar sebenarnya.</p>
+</div>
+</details>
+
+<details>
+<summary>Kalkulator risiko</summary>
+<div class="in">
+<label class="f">Saldo akun (USD)<input type="number" id="bal" value="1000" min="0" inputmode="decimal"></label>
+<label class="f">Risiko per trade (%)<input type="number" id="rk" value="1" min="0" step="0.1" inputmode="decimal"></label>
+<label class="f">Jarak stop loss (USD per ons, misal 5.00)<input type="number" id="sl" value="5" min="0" step="0.1" inputmode="decimal"></label>
+<label class="f">Nilai per 1 USD pergerakan per 1 lot<input type="number" id="pv" value="100" min="0" inputmode="decimal"></label>
+<div class="res" id="out">—</div>
+<p class="note" style="margin-top:8px">Untuk XAUUSD, 1 lot standar = 100 ons, jadi nilai bawaan 100. Cek spesifikasi kontrak di broker kamu.</p>
+</div>
+</details>
+
+<details>
+<summary>Kesalahan umum</summary>
+<div class="in">
+<ul>
+<li>Entry di macro tanpa bias HTF yang jelas.</li>
+<li>Masuk sebelum likuiditas disapu dan tanpa konfirmasi MSS.</li>
+<li>Menganggap setiap macro pasti bergerak; sebagian besar hanya menghasilkan satu sapuan.</li>
+<li>Stop loss terlalu rapat sehingga ikut tersapu.</li>
+<li>Trading saat rilis berita besar tanpa rencana.</li>
+<li>Lot dihitung dari perasaan, bukan dari risiko tetap.</li>
+</ul>
+</div>
+</details>
+
+</div>
+<p class="note">Disclaimer: halaman ini untuk edukasi, bukan saran keuangan. Trading berisiko tinggi dan bisa menyebabkan kerugian.</p>
+</main>
+<nav class="tabs" id="tabs" role="tablist" aria-label="Menu">
+<button id="b-live" role="tab" type="button"><b>📈</b>Live</button>
+<button id="b-macro" role="tab" type="button"><b>⏰</b>Macro</button>
+<button id="b-quarterly" role="tab" type="button"><b>🧩</b>Quarterly</button>
+<button id="b-entry" role="tab" type="button"><b>🎯</b>Entry</button>
+<button id="b-alat" role="tab" type="button"><b>🧰</b>Alat</button>
+</nav>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById("tg");
+function cur(){var t=r.getAttribute("data-theme");if(t)return t;return matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}
+function set(t){r.setAttribute("data-theme",t);b.textContent=t==="dark"?"\u2600 Mode terang":"\u263E Mode gelap";b.setAttribute("aria-pressed",String(t==="dark"))}
+try{var sv=localStorage.getItem("th");if(sv)r.setAttribute("data-theme",sv)}catch(e){}
+set(cur());
+b.onclick=function(){var t=cur()==="dark"?"light":"dark";set(t);try{localStorage.setItem("th",t)}catch(e){}};})();
+var MAC=[["London 1",2,33,3,0],["London 2",4,3,4,30],["NY AM 1",8,50,9,10],["NY AM 2",9,50,10,10],["NY AM 3",10,50,11,10],["NY lunch",11,50,12,10],["NY PM 1",13,10,13,40],["NY PM 2",14,50,15,10],["NY close",15,15,15,45]];
+var rows=document.getElementById("rows"),tl=document.getElementById("tl");
+function p2(n){return (n<10?"0":"")+n}
+function fm(t){t=((t%1440)+1440)%1440;return p2(Math.floor(t/60))+":"+p2(t%60)}
+function nyParts(){
+  var f=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",weekday:"short"}).formatToParts(new Date()),o={};
+  f.forEach(function(x){o[x.type]=x.value});
+  return {y:+o.year,mo:+o.month,d:+o.day,h:+o.hour%24,mi:+o.minute,s:+o.second,wd:o.weekday};
+}
+function nyOff(n){var a=Date.UTC(n.y,n.mo-1,n.d,n.h,n.mi,n.s);return Math.round((a-Math.floor(Date.now()/1000)*1000)/60000)}
+function wibStr(){return new Intl.DateTimeFormat("id-ID",{timeZone:"Asia/Jakarta",hourCycle:"h23",hour:"2-digit",minute:"2-digit",second:"2-digit"}).format(new Date()).replace(/\./g,":")}
+function dur(s){s=Math.max(0,Math.floor(s));var h=Math.floor(s/3600),m=Math.floor(s%3600/60);return (h?h+" jam ":"")+m+" menit "+p2(s%60)+" detik"}
+function build(){
+  var n=nyParts(),off=nyOff(n),h="";
+  tl.innerHTML="";
+  MAC.forEach(function(m,i){
+    var a=m[1]*60+m[2],b=m[3]*60+m[4],wa=a-off+420,wb=b-off+420;
+    h+='<tr id="r'+i+'"><td>'+m[0]+'</td><td>'+fm(a)+"–"+fm(b)+'</td><td>'+fm(wa)+"–"+fm(wb)+(wa>=1440?" (+1)":"")+'</td></tr>';
+    var e=document.createElement("i");e.style.left=(a/14.4)+"%";e.style.width=((b-a)/14.4)+"%";e.title=m[0];tl.appendChild(e);
+  });
+  rows.innerHTML=h;
+  var u=document.createElement("u");u.id="now";tl.appendChild(u);
+  document.getElementById("nyl").textContent="New York (UTC"+(off/60)+")";
+  var DQ=[["Q1","Akumulasi","Asia",18],["Q2","Manipulasi","London",0],["Q3","Distribusi","NY AM",6],["Q4","Lanjutan / pembalikan","NY PM",12]],q="";
+  DQ.forEach(function(d,i){var a=d[3]*60,wa=a-off+420;q+='<tr id="dq'+i+'"><td>'+d[0]+'</td><td>'+d[1]+'</td><td>'+d[2]+'</td><td>'+fm(a)+"–"+fm(a+360)+'</td><td>'+fm(wa)+"–"+fm(wa+360)+'</td></tr>'});
+  document.getElementById("dq").innerHTML=q;
+}
+function tick(){
+  var n=nyParts(),sec=n.h*3600+n.mi*60+n.s,wk=(n.wd==="Sat"||n.wd==="Sun");
+  document.getElementById("wib").textContent=wibStr();
+  document.getElementById("ny").textContent=p2(n.h)+":"+p2(n.mi)+":"+p2(n.s);
+  document.getElementById("now").style.left=(sec/864)+"%";
+  var mm=(n.h*60+n.mi-1080+1440)%1440,qi=Math.floor(mm/360),QN=["Akumulasi","Manipulasi","Distribusi","Lanjutan / pembalikan"],SS=["Asia","London","NY AM","NY PM"];
+  for(var k=0;k<4;k++){document.getElementById("dq"+k).className=k===qi?"on":""}
+  document.getElementById("qlive").innerHTML="Kuartal harian: <b>Q"+(qi+1)+" "+QN[qi]+"</b> ("+SS[qi]+")<br>Siklus 90 menit ke-"+(Math.floor(mm%360/90)+1)+", kuartal mikro <b>Q"+(Math.floor(mm%90/22.5)+1)+"</b>"+(wk?"<br>Pasar akhir pekan, hanya referensi.":"");
+  var act=-1,nxt=-1,nd=1e9;
+  MAC.forEach(function(m,i){
+    var a=m[1]*3600+m[2]*60,b=m[3]*3600+m[4]*60,r=document.getElementById("r"+i);
+    var on=!wk&&sec>=a&&sec<b;r.className=on?"on":"";
+    if(on)act=i;
+    var d=a-sec;if(d<=0)d+=86400;if(d<nd){nd=d;nxt=i}
+  });
+  var st=document.getElementById("st"),cd=document.getElementById("cd");
+  if(wk){st.textContent="Pasar akhir pekan: macro tidak berlaku";cd.textContent="Macro berikutnya muncul saat pasar dibuka kembali.";return}
+  if(act>=0){var m=MAC[act];st.textContent="Macro aktif: "+m[0];cd.textContent="Berakhir dalam "+dur(m[3]*3600+m[4]*60-sec)}
+  else{st.textContent="Tidak ada macro aktif";cd.textContent="Berikutnya: "+MAC[nxt][0]+" dalam "+dur(nd)}
+}
+function calc(){
+  var b=+document.getElementById("bal").value,r=+document.getElementById("rk").value,s=+document.getElementById("sl").value,v=+document.getElementById("pv").value,o=document.getElementById("out");
+  if(!(b>0&&r>0&&s>0&&v>0)){o.textContent="Isi semua kolom dengan angka lebih dari 0.";return}
+  var risk=b*r/100,lot=risk/(s*v);
+  o.innerHTML="Risiko: <b>$"+risk.toFixed(2)+"</b><br>Ukuran lot: <b>"+lot.toFixed(2)+"</b> (tepatnya "+lot.toFixed(4)+")";
+}
+["bal","rk","sl","pv"].forEach(function(id){document.getElementById(id).addEventListener("input",calc)});
+build();calc();tick();setInterval(tick,1000);setInterval(build,600000);
+(function(){
+var LV=["Yearly","Monthly","Weekly","Daily","90m","Micro","Nano"],H=36e5,D=864e5,M=6e4,FS=["Akumulasi","Manipulasi","Distribusi","Lanjutan / pembalikan"],SS=["Asia","London","NY AM","NY PM"],
+TIPS=["Fase akumulasi: tunggu range dan likuiditas terbentuk, hindari entry agresif.","Fase manipulasi: waspadai sapuan likuiditas dan gerakan palsu, tunggu konfirmasi MSS.","Fase distribusi: ekspansi searah bias, cari entry saat retrace ke FVG.","Fase lanjutan atau pembalikan: kelola posisi, siap ambil profit, hindari entry yang terlambat."],
+WN=["MINGGU","SENIN","SELASA","RABU","KAMIS","JUMAT","SABTU"],EN=["SUN","MON","TUE","WED","THU","FRI","SAT"],WINS=[5,17.5,45,90,180,360],
+S={at:null,wi:1,on:[0,0,0,1,1,1,1],bell:false,prev:null,wr:{},wm:{},ma:{on:[1,1,1,1,1,1,1,1,1],pre:5,st:true,en:false},tn:{m:"bell",q1:"beep",q2:"beep",q3:"beep",q4:"beep"},cu:[null,null,null],vol:.8,lg:[],al:{lv:[0,0,0,1,1,1,0],ph:[0,1,1,0],pre:1,snd:true,vib:true}};
+function $(i){return document.getElementById(i)}
+function off(t){var f=new Intl.DateTimeFormat("en-US",{timeZone:"America/New_York",hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"}).formatToParts(new Date(t)),o={};f.forEach(function(x){o[x.type]=x.value});return Date.UTC(+o.year,o.month-1,+o.day,+o.hour%24,+o.minute,+o.second)-Math.floor(t/1000)*1000}
+function qa(i,W){var d=new Date(W),y=d.getUTCFullYear(),m=d.getUTCMonth(),q,s,e;
+if(i==0){q=Math.floor(m/3);s=Date.UTC(y,q*3,1);e=Date.UTC(y,q*3+3,1)}
+else if(i==1){q=Math.min(3,Math.floor((d.getUTCDate()-1)/7));s=Date.UTC(y,m,q*7+1);e=q==3?Date.UTC(y,m+1,1):Date.UTC(y,m,q*7+8)}
+else if(i==2){var ds=Math.floor(W/D)*D,w=d.getUTCDay();if(w>=1&&w<=3){q=w-1;s=ds;e=ds+D}else{q=3;s=ds-((w+3)%7)*D;e=s+4*D}}
+else{var ps,P;if(i==3){ps=Math.floor((W-18*H)/D)*D+18*H;P=D}else{var a=qa(i-1,W);ps=a.s;P=a.e-a.s}
+var z=P/4;q=Math.min(3,Math.floor((W-ps)/z));s=ps+q*z;e=s+z}
+return{q:q+1,s:s,e:e}}
+function hms(w){var d=new Date(w);return p2(d.getUTCHours())+":"+p2(d.getUTCMinutes())+":"+p2(d.getUTCSeconds())}
+function hm(w){return hms(w).slice(0,5)}
+function rem(ms){var s=Math.max(0,Math.floor(ms/1000)),dd=Math.floor(s/86400);if(dd>=2)return dd+" hari";var h=Math.floor(s/3600),m=Math.floor(s%3600/60);return h?h+"j "+p2(m)+"m":m+"m "+p2(s%60)+"d"}
+function cl(i,q){return i>=5?"q"+q:"g"}
+function ts(m){var e=$("toast");e.textContent=m;e.hidden=false;clearTimeout(ts.h);ts.h=setTimeout(function(){e.hidden=true},6000);try{if(window.Notification&&Notification.permission==="granted")new Notification(m)}catch(x){}}
+function setIn(){$("exin").value=new Date(S.at+off(S.at)).toISOString().slice(0,16)}
+function chips(){$("chips").innerHTML=LV.map(function(n,i){return '<button class="pill'+(S.on[i]?' on':'')+'" data-i="'+i+'" aria-pressed="'+(S.on[i]?'true':'false')+'">'+(S.on[i]?'\u2713 ':'')+n+'</button>'}).join("")}
+function rs(){
+var t=S.at==null?Date.now():S.at,o=off(t),W=t+o,B=t+7*H,win=WINS[S.wi]*M,t0=W-win,t1=W+win,sp=2*win;
+var x=function(w){return (w-t0)/sp*100};
+$("ckd").textContent=EN[new Date(W).getUTCDay()]+" \u00b7 "+new Date(W).toISOString().slice(0,10);
+$("ckt").textContent=hms(W);
+$("ckw").textContent="WIB \u00b7 "+WN[new Date(B).getUTCDay()]+" \u00b7 "+new Date(B).toISOString().slice(0,10)+" \u00b7 "+hms(B);
+$("bwin").textContent="\u00b1"+WINS[S.wi]+" mnt";
+$("bex").className="pill"+(S.at!=null?" on":"");
+$("exr").hidden=S.at==null;
+var st=[1,5,15,30,60,180,360].filter(function(v){return sp/(v*M)<=8})[0],sm=st*M,tk="",tn="",h='<div class="ov">';
+for(var w=Math.ceil(t0/sm)*sm;w<t1;w+=sm){var p=x(w);h+='<i style="left:'+p+'%"></i>';if(Math.abs(p-50)>9){tk+='<span style="left:'+p+'%">'+hm(w-o+7*H)+'</span>';tn+='<span style="left:'+p+'%">'+hm(w)+'</span>'}}
+h+='<u style="left:50%"></u><em>NY '+hms(W)+' \u00b7 WIB '+hms(B)+'</em></div>';
+h+='<div class="gr"><b style="color:var(--gold)">WIB</b><div class="tp" style="color:var(--gold)">'+tk+'</div></div><div class="gr"><b style="color:var(--muted)">NY</b><div class="tp" style="color:var(--muted)">'+tn+'</div></div>';
+var qs=LV.map(function(_,i){return qa(i,W).q}),ch=[],rows="",lo=-1;
+LV.forEach(function(n,i){if(!S.on[i])return;lo=i;ch.push(qs[i]);var bars="",c=t0,k=0;
+while(c<t1&&k++<160){var r=qa(i,c),l=Math.max(0,x(r.s)),rt=Math.min(100,x(r.e)),m=(r.s+r.e)/2,sq=[];for(var j=Math.max(0,i-2);j<=i;j++)sq.push(qa(j,m).q);
+bars+='<div class="'+cl(i,r.q)+'" style="left:'+l+'%;width:'+(rt-l)+'%">'+(rt-l>=8?sq.join("-"):"")+'</div>';c=r.e}
+h+='<div class="gr rw"><div class="rl">'+n+'<b>'+qs[i]+'</b></div><div class="rp">'+bars+'</div></div>';
+var r2=qa(i,W);rows+='<tr><td><span class="dot" style="background:var(--'+(i>=5?'q'+r2.q:'g')+')"></span>'+n+'</td><td>'+r2.q+'</td><td><b>'+ch.join("-")+'</b></td><td>'+FS[r2.q-1]+'</td><td>'+rem(r2.e-W)+'</td></tr>'});
+$("ch").innerHTML=h;
+$("sqt").innerHTML=rows||'<tr><td colspan="5">Pilih minimal satu level.</td></tr>';
+$("sqa").innerHTML=lo<0?"Pilih level untuk melihat analisis.":"<b>Sequence aktif: "+ch.join("-")+"</b><br>"+LV[lo]+" Q"+qs[lo]+" \u00b7 "+FS[qs[lo]-1]+". "+TIPS[qs[lo]-1]+"<br><span class='note'>Sesi harian: "+SS[qs[3]-1]+" (Q"+qs[3]+"), siklus 90 menit ke-"+qs[4]+".</span>";
+if(false){for(var i=3;i<=5;i++){if(S.on[i]&&S.prev[i]!==qs[i]){ts("Pergantian kuartal: "+LV[i]+" Q"+qs[i]+" \u00b7 "+FS[qs[i]-1]);break}}}
+alr(qs,W);alm(W);S.prev=S.at==null?qs:null}
+$("chips").onclick=function(e){var b=e.target.closest("button");if(!b)return;var i=+b.dataset.i;S.on[i]=S.on[i]?0:1;chips();rs()};
+$("pre").onclick=function(){S.on=[0,0,1,1,1,0,0];chips();rs()};
+$("all").onclick=function(){S.on=[1,1,1,1,1,1,1];chips();rs()};
+$("bex").onclick=function(){S.at=S.at==null?Date.now():null;if(S.at!=null)setIn();rs()};
+var live=function(){S.at=null;rs()};$("blive").onclick=live;$("rf").onclick=live;
+$("bwin").onclick=function(){S.wi=(S.wi+1)%WINS.length;rs()};
+$("exin").onchange=function(){var v=this.value;if(!v)return;var w=Date.parse(v+":00Z");S.at=w-off(w+5*H);rs()};
+$("sqsw").onchange=function(){$("sqbody").hidden=!this.checked};
+$("sqbell").onclick=function(){S.bell=!S.bell;this.className="rb"+(S.bell?" on":"");this.textContent=S.bell?"\uD83D\uDD14":"\uD83D\uDD15";if(S.bell){try{if(window.Notification&&Notification.permission==="default")Notification.requestPermission()}catch(x){}ts("Notifikasi pergantian kuartal aktif")}};
+var dr=null,cv=$("ch");
+cv.onpointerdown=function(e){var ov=cv.querySelector(".ov");if(!ov)return;dr={x:e.clientX,w:ov.clientWidth,t:S.at==null?Date.now():S.at};try{cv.setPointerCapture(e.pointerId)}catch(x){}};
+cv.onpointermove=function(e){if(!dr)return;var dx=e.clientX-dr.x;if(S.at==null&&Math.abs(dx)<4)return;S.at=dr.t-dx/dr.w*2*WINS[S.wi]*M;setIn();rs()};
+cv.onpointerup=cv.onpointercancel=function(){dr=null};
+var AC=null,SH=["Tunggu range, jangan entry.","Waspada sapuan likuiditas, tunggu MSS.","Cari entry di retrace FVG searah bias.","Kelola posisi, siap take profit."];
+function unlock(){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==="suspended")AC.resume()}catch(x){}}
+document.addEventListener("pointerdown",unlock,{once:true});
+function beep(q){unlock();if(!AC)return;try{var f=[440,330,660,520][q-1],n=q==3?3:q==2?2:1;for(var k=0;k<n;k++){var o=AC.createOscillator(),g=AC.createGain(),s=AC.currentTime+k*.28;o.frequency.value=f;o.connect(g);g.connect(AC.destination);g.gain.setValueAtTime(.0001,s);g.gain.exponentialRampToValueAtTime(.3*(S.vol||.8),s+.02);g.gain.exponentialRampToValueAtTime(.0001,s+.22);o.start(s);o.stop(s+.25)}}catch(x){}}
+function alog(){$("alog").innerHTML=S.lg.map(function(l){return "<li>"+l+"</li>"}).join("")||'<li class="note">Belum ada alarm.</li>'}
+function fire(m,q,k){ts(m);if(S.al.snd)tone(k||"q"+q,q);if(S.al.vib){try{navigator.vibrate&&navigator.vibrate([200,100,200])}catch(x){}}var n=Date.now();S.lg.unshift("NY "+hms(n+off(n))+" \u00b7 "+m);S.lg.length=Math.min(S.lg.length,6);alog()}
+function alr(qs,W){if(S.at!=null||!S.bell||!S.prev)return;var A=S.al;
+for(var i=3;i<=6;i++){if(!A.lv[i])continue;
+if(S.prev[i]!==qs[i]&&A.ph[qs[i]-1]){fire("Masuk "+LV[i]+" Q"+qs[i]+" \u00b7 "+FS[qs[i]-1]+". "+SH[qs[i]-1],qs[i])}
+if(A.pre>0){var r=qa(i,W),left=r.e-W,nq=qa(i,r.e+1).q,key=i+"@"+r.e;if(left>0&&left<=A.pre*M&&A.ph[nq-1]&&!S.wr[key]){S.wr[key]=1;fire("Sebentar lagi: "+LV[i]+" masuk Q"+nq+" \u00b7 "+FS[nq-1]+" dalam "+rem(left),nq)}}}
+if(Object.keys(S.wr).length>80)S.wr={}}
+function alui(){
+$("alv").innerHTML=[3,4,5,6].map(function(i){return '<button class="pill'+(S.al.lv[i]?' on':'')+'" data-l="'+i+'">'+(S.al.lv[i]?'\u2713 ':'')+LV[i]+'</button>'}).join("");
+$("alph").innerHTML=FS.map(function(n,i){return '<button class="pill'+(S.al.ph[i]?' on':'')+'" data-p="'+i+'">'+(S.al.ph[i]?'\u2713 ':'')+'Q'+(i+1)+' '+n.split(" ")[0]+'</button>'}).join("");
+$("alpre").innerHTML=[[0,"Saat masuk"],[1,"1 mnt"],[2,"2 mnt"],[5,"5 mnt"]].map(function(a){return '<button class="pill'+(S.al.pre===a[0]?' on':'')+'" data-r="'+a[0]+'">'+a[1]+'</button>'}).join("");
+$("alsn").className="pill"+(S.al.snd?" on":"");$("alvb").className="pill"+(S.al.vib?" on":"");
+try{localStorage.setItem("al",JSON.stringify(S.al))}catch(x){}}
+$("alp").onclick=function(e){var b=e.target.closest("button");if(!b)return;var d=b.dataset;
+if(d.l!=null){S.al.lv[+d.l]=S.al.lv[+d.l]?0:1}
+else if(d.p!=null){S.al.ph[+d.p]=S.al.ph[+d.p]?0:1}
+else if(d.r!=null){S.al.pre=+d.r}
+else if(b.id==="alsn"){S.al.snd=!S.al.snd}
+else if(b.id==="alvb"){S.al.vib=!S.al.vib}
+else if(b.id==="altest"){fire("Tes alarm: Q3 \u00b7 Distribusi. "+SH[2],3);return}
+alui()};
+try{var sv=JSON.parse(localStorage.getItem("al"));if(sv&&sv.lv&&sv.ph&&sv.lv.length==7)S.al=sv}catch(x){}
+alui();alog();
+var TN=[["beep","Beep fase"],["bell","Lonceng"],["siren","Sirine"],["digi","Digital"],["off","Senyap"]],upi=0;
+function pre(t){unlock();if(!AC)return;var v=.35*S.vol,c=AC.currentTime;try{var nt=function(f,s,d,ty,f2){var o=AC.createOscillator(),g=AC.createGain();o.type=ty||"sine";o.frequency.setValueAtTime(f,c+s);if(f2)o.frequency.linearRampToValueAtTime(f2,c+s+d);o.connect(g);g.connect(AC.destination);g.gain.setValueAtTime(.0001,c+s);g.gain.exponentialRampToValueAtTime(v,c+s+.02);g.gain.exponentialRampToValueAtTime(.0001,c+s+d);o.start(c+s);o.stop(c+s+d+.05)};
+if(t==="bell"){nt(880,0,1.2);nt(1320,0,1);nt(880,.7,1.2);nt(1320,.7,1)}
+else if(t==="siren"){nt(600,0,.6,"sawtooth",900);nt(900,.6,.6,"sawtooth",600)}
+else if(t==="digi"){for(var k=0;k<4;k++)nt(1000,k*.2,.12,"square")}}catch(x){}}
+function tone(k,q){var t=S.tn[k]||"beep";if(t==="off")return;if(t.charAt(0)==="c"){var c=S.cu[+t.slice(1)];if(c){try{var a=new Audio(c.u);a.volume=S.vol;var pr=a.play();if(pr&&pr.catch)pr.catch(function(){})}catch(x){}return}t="beep"}if(t==="beep")beep(q);else pre(t)}
+function sel(k){var o=TN.map(function(a){return '<option value="'+a[0]+'"'+(S.tn[k]===a[0]?' selected':'')+'>'+a[1]+'</option>'}).join("");S.cu.forEach(function(c,i){if(c)o+='<option value="c'+i+'"'+(S.tn[k]==="c"+i?' selected':'')+'>Nada saya '+(i+1)+'</option>'});return '<select data-k="'+k+'" aria-label="Nada">'+o+'</select>'}
+function trow(k,l){return '<div class="tr"><span>'+l+'</span>'+sel(k)+'<button class="pill" data-pv="'+k+'" type="button" aria-label="Putar nada">\u25B6</button></div>'}
+function sv2(){try{localStorage.setItem("al2",JSON.stringify({ma:S.ma,tn:S.tn,vol:S.vol}))}catch(x){}try{localStorage.setItem("cu",JSON.stringify(S.cu))}catch(x){}}
+function mui(){
+$("mach").innerHTML=MAC.map(function(m,i){return '<button class="pill'+(S.ma.on[i]?' on':'')+'" data-mi="'+i+'">'+(S.ma.on[i]?'\u2713 ':'')+m[0]+' '+p2(m[1])+':'+p2(m[2])+'</button>'}).join("");
+$("mapre").innerHTML=[0,1,2,5,10].map(function(v){return '<button class="pill'+(S.ma.pre===v?' on':'')+'" data-mr="'+v+'">'+(v?v+' mnt':'Tidak ada')+'</button>'}).join("");
+$("mast").className="pill"+(S.ma.st?" on":"");$("maen").className="pill"+(S.ma.en?" on":"");
+$("matn").innerHTML=trow("m","Nada macro");
+$("tnrows").innerHTML=[1,2,3,4].map(function(q){return trow("q"+q,"Q"+q+" "+FS[q-1].split(" ")[0])}).join("");
+$("cus").innerHTML=[0,1,2].map(function(i){var c=S.cu[i];return '<div class="tr"><span>Nada saya '+(i+1)+'</span><span class="note">'+(c?c.n:"belum ada file")+'</span><span><button class="pill" data-up="'+i+'" type="button">Pilih</button>'+(c?' <button class="pill" data-dl="'+i+'" type="button">Hapus</button>':'')+'</span></div>'}).join("");
+$("vol").value=S.vol;sv2()}
+function alm(W){if(S.at!=null||!S.bell)return;var dw=new Date(W).getUTCDay();if(dw==0||dw==6)return;var A=S.ma,day=Math.floor(W/D),s=(W-day*D)/1000;
+Object.keys(S.wm).forEach(function(z){if(+z.split("@")[1]!==day)delete S.wm[z]});
+MAC.forEach(function(m,i){if(!A.on[i])return;var a=m[1]*3600+m[2]*60,b=m[3]*3600+m[4]*60,ck=function(c,key,msg){var z=key+"@"+day;if(c&&!S.wm[z]){S.wm[z]=1;fire(msg,2,"m")}};
+if(A.pre>0)ck(s>=a-A.pre*60&&s<a,i+"p","Macro "+m[0]+" dimulai dalam "+rem((a-s)*1000));
+if(A.st)ck(s>=a&&s<a+60,i+"s","Macro "+m[0]+" dimulai ("+p2(m[1])+":"+p2(m[2])+" NY)");
+if(A.en)ck(s>=b&&s<b+60,i+"e","Macro "+m[0]+" selesai")})}
+document.addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;var d=b.dataset;
+if(d.pv){unlock();tone(d.pv,d.pv==="m"?2:+d.pv.slice(1))}
+else if(d.up!=null){upi=+d.up;$("cuf").click()}
+else if(d.dl!=null){S.cu[+d.dl]=null;for(var kk in S.tn){if(S.tn[kk]==="c"+d.dl)S.tn[kk]="beep"}mui()}
+else if(d.mi!=null){S.ma.on[+d.mi]=S.ma.on[+d.mi]?0:1;mui()}
+else if(d.mr!=null){S.ma.pre=+d.mr;mui()}
+else if(b.id==="mast"){S.ma.st=!S.ma.st;mui()}
+else if(b.id==="maen"){S.ma.en=!S.ma.en;mui()}
+else if(b.id==="matest"){fire("Tes alarm macro: NY AM 1 dimulai dalam 05m 00d",2,"m")}});
+document.addEventListener("change",function(e){var t=e.target;
+if(t.dataset&&t.dataset.k){S.tn[t.dataset.k]=t.value;mui()}
+else if(t.id==="vol"){S.vol=+t.value;sv2()}
+else if(t.id==="cuf"){var f=t.files[0];t.value="";if(!f)return;if(f.size>1048576){ts("File terlalu besar, maksimal 1 MB");return}var r=new FileReader();r.onload=function(){S.cu[upi]={n:f.name.slice(0,18),u:r.result};try{localStorage.setItem("cu",JSON.stringify(S.cu))}catch(x){ts("Nada dipakai untuk sesi ini, tapi tidak bisa disimpan permanen")}mui()};r.readAsDataURL(f)}});
+try{var s2=JSON.parse(localStorage.getItem("al2"));if(s2){if(s2.ma&&s2.ma.on&&s2.ma.on.length==MAC.length)S.ma=s2.ma;if(s2.tn)S.tn=Object.assign(S.tn,s2.tn);if(s2.vol)S.vol=s2.vol}var c2=JSON.parse(localStorage.getItem("cu"));if(c2&&c2.length==3)S.cu=c2}catch(x){}
+mui();
+chips();rs();setInterval(rs,1000);
+})();
+(function(){var N=["live","macro","quarterly","entry","alat"];
+function show(n){if(N.indexOf(n)<0)n="live";N.forEach(function(k){var p=document.getElementById("t-"+k),b=document.getElementById("b-"+k);p.className="tp"+(k===n?" on":"");b.className=k===n?"on":"";b.setAttribute("aria-selected",k===n?"true":"false")});window.scrollTo(0,0)}
+document.getElementById("tabs").onclick=function(e){var b=e.target.closest("button");if(!b)return;var n=b.id.slice(2);show(n);try{history.replaceState(null,"","#"+n)}catch(x){}};
+window.addEventListener("hashchange",function(){show(location.hash.slice(1))});
+var mb=document.getElementById("mabell"),bl=document.getElementById("sqbell");
+mb.onclick=function(){bl.click()};
+setInterval(function(){mb.textContent=bl.classList.contains("on")?"\uD83D\uDD14 Alarm aktif (ketuk untuk mematikan)":"\uD83D\uDD15 Alarm mati (ketuk untuk menyalakan)"},500);
+show(location.hash.slice(1)||"live")})();
+</script>
+</body>
+</html>
